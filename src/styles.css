@@ -1,1 +1,89 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,700');
+  body{
+    background: #7dcea0;
+    padding: 3em;
+    font-family: 'Raleway', 'Arial';
+    color: #fff;    
+  } 
+  ul{
+    list-style-type:none;
+    margin: 0 0 2em 0;
+    padding: 0;
+  }
+  ul li{
+    display:inline;
+    margin-right:30px;
+  }
+  ul li a{
+    font-size: 1.5em;
+  }
+  a{
+  color: #fff;
+  text-decoration:none;
+  }
+/* FORM CONTAINER LIMIT WIDTH */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.1); 
+  padding: 2rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  backdrop-filter: blur(4px);
+}
+
+/* TEXT INPUTS */
+input.txt {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1em;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+input.txt::placeholder {
+  color: #458e64;
+  font-weight: 300;
+}
+
+input.txt:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  outline: none;
+  box-shadow: 0 0 5px #ffffff80;
+}
+
+/* BUTTONS */
+input.btn {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+input.btn:hover {
+  background-color: #fff;
+  color: #7dcea0;
+}
+
+/* LIFE CONTAINER ITEMS */
+.life-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #fff;
+}
+
