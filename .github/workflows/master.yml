@@ -1,0 +1,71 @@
+name: CI/CD deploy master
+on: 
+  #push:
+    #branches: [ "deploy-release"]
+  pull_request:
+    branches: [ "master"]
+jobs:
+  ci_cd_deploy_master:
+    runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo ‘hello world’
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 20.x
+      - name: install dependencies 
+        run: npm ci
+
+      - name: build setup
+        run: npm run build
+
+      - name: list dir
+        run: ls -la dist/admin-cv/browser
+
+      - name: build angular, output in dist/admin-cv
+        run: |
+          CI=false npm run build
+      
+      - name: show dir
+        run: |
+          ls -la dist/admin-cv/browser
+      
+      - name: download, run httpd image, container name serving_base
+        run: |
+          docker run -d --name serving_base httpd
+
+      - name: docker ps
+        run: | 
+          docker ps
+
+      - name: cp angular build to container
+        run: |
+          docker cp dist/admin-cv/browser/.  serving_base:/usr/local/apache2/htdocs
+          
+      - name: list container
+        run: |
+          docker exec serving_base ls -la /usr/local/apache2/htdocs
+
+      
+      - name: Build the custom Docker image 
+        run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}"
+             serving_base ${{secrets.DOCKER_USER}}/${{secrets.MODEL_NAME}}:${{github.sha}}
+
+      - name: show docker images 
+        run: docker images
+
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Docker Push 
+        run: docker push ${{secrets.DOCKER_USER}}/${{secrets.MODEL_NAME}}:${{github.sha}}
+      
+          
