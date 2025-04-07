@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularCollection } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { WorkExperience } from '../../models/work-experience/work-experience.model';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { WorkExperience } from '../../models/work-experience/work-experience.mod
 export class WorkExperienceService {
   
   private dbPath= '/work-experience';
-  workExperience: AngularFirestoreCollection<WorkExperience>;
+  workExperienceRef: AngularFirestoreCollection<WorkExperience>;
 
   constructor(private db: AngularFirestore) {
       this.workExperienceRef=db.collection(this.dbPath);
@@ -22,3 +22,4 @@ export class WorkExperienceService {
   deleteWorkExperience(id? : string): Promise<void> {
       return this.workExperienceRef.doc(id).delete();
   }
+}
