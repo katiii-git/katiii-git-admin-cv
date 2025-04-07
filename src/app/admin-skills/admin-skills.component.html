@@ -1,0 +1,30 @@
+<div class="container color-dark">
+
+    <div class="col">
+
+        <p>skills items</p>
+
+    </div>
+
+</div>
+<div class="container color-light">
+
+    <div class="col">
+
+        <form>
+            <input type="text" class="txt" name="skill" placeholder="skill description" [(ngModel)]="mySkill.skill"><br>
+	    <input type="text" class="txt" name="percentage" placeholder="porcentaje" [(ngModel)]="mySkill.percentage"><br>
+            <input type="submit" class="btn" value="{{ btnTxt }}" (click)="agregarSkill()">
+        </form>
+    </div>
+
+    <div class="col">
+        <p class="life-container" *ngFor="let skill of skills;">
+            <input type="submit" class="btn" value="update" (click)="updateSkill(skill.id)">
+            <input type="submit" class="btn" value="delete" (click)="deleteSkill(skill.id)">
+            {{skill.skill}} – {{skill.percentage}}%
+        </p>
+
+    </div>
+
+</div>
