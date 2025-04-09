@@ -13,6 +13,7 @@ export class AdminLanguagesComponent {
   btnTxt: string ="Agregar";
   languages: Languages[] =[];
   myLanguage: Languages = new Languages();
+  selectedLanguageId: string | null = null;
 
   constructor(public languagesService: LanguagesService)
   {
@@ -30,10 +31,23 @@ export class AdminLanguagesComponent {
         }
 
   agregarLanguage(){
-    console.log(this.myLanguage);
+    if (this.selectedLanguageId) {
+      
+      this.languagesService.updateLanguage(this.selectedLanguageId, this.myLanguage).then(() => {
+        this.resetForm();
+        console.log('Updated successfully!');
+      });
+    } else {
+
+      this.languagesService.createLanguage(this.myLanguage).then(() => {
+        this.resetForm();
+        console.log('Created successfully!');
+      });
+    }
+      /*console.log(this.myLanguage);
     this.languagesService.createLanguage(this.myLanguage).then(()=> {
       console.log('Created new item successfully!');
-    });
+    });*/
   }
 
   deleteLanguage(id? :string){
@@ -42,7 +56,16 @@ export class AdminLanguagesComponent {
     });
       console.log(id);
   }
-  updateLanguage(id? :string){
-    alert('updating...');
+  updateLanguage(language :any){
+    this.myLanguage = { language: language.language };
+    this.selectedLanguageId = language.id;
+    this.btnTxt = 'Update';
   }
+
+  resetForm() {
+    this.myLanguage = new Languages();
+    this.selectedLanguageId = null;
+    this.btnTxt = 'Agregar';
+  }
+
 }

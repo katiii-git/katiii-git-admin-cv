@@ -13,7 +13,9 @@ export class AdminInterestsComponent {
    btnTxt: string = "Agregar";
    interests: Interests[] = [];
    myInterests: Interests = new Interests();
-    constructor(public interestsService: InterestsService)
+   selectedInterestId: string | null = null;
+   
+   constructor(public interestsService: InterestsService)
     {
         console.log(this.interestsService);
         this.interestsService.getInterests().snapshotChanges().pipe(
@@ -29,10 +31,24 @@ export class AdminInterestsComponent {
     }
 
   AgregarInterests(){
-    console.log(this.interestsService);
+   if (this.selectedInterestId) {
+     
+      this.interestsService.updateInterests(this.selectedInterestId, this.myInterests).then(() => {
+        this.resetForm();
+        console.log('Updated item successfully!');
+      });
+    } else {
+      
+      this.interestsService.createInterests(this.myInterests).then(() => {
+        this.resetForm();
+        console.log('Created new item successfully!');
+      });
+    }
+      
+      /* console.log(this.interestsService);
     this.interestsService.createInterests(this.myInterests).then(() => {
        console.log('Created new item successfully!');
-    });
+    });*/
   }
 
   deleteInterests(id? :string){
@@ -42,8 +58,14 @@ export class AdminInterestsComponent {
     console.log(id);
   }
 
-  updateInterests(id? :string){
-    alert('updating...');
+  updateInterests(interest :any){
+    this.myInterests = { descripcion: interest.descripcion };  
+    this.selectedInterestId = interest.id;
+    this.btnTxt = 'Update';
   }
-
+  resetForm() {
+    this.myInterests = new Interests();
+    this.selectedInterestId = null;
+    this.btnTxt = 'Agregar';
+  }
 }
