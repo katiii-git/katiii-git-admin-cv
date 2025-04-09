@@ -13,7 +13,7 @@ itemCount: number =0;
   btnTxt: string = "Agregar";
   education: Education[] = [];
   myEducation: Education = new Education();
-
+  selectedEducationId: string | null = null; 
   constructor(public educationService: EducationService)
         {
                 console.log(this.educationService);
@@ -30,10 +30,21 @@ itemCount: number =0;
         }
 
   agregarEducation(){
-    console.log(this.myEducation);
+    if (this.selectedEducationId) {
+      this.educationService.updateEducation(this.selectedEducationId, this.myEducation).then(() => {
+        this.resetForm();
+        console.log('Updated item successfully!');
+      });
+    } else {
+        this.educationService.createEducation(this.myEducation).then(() => {
+         this.resetForm();
+        console.log('Created item successfully!');
+      });
+    }
+      /*console.log(this.myEducation);
     this.educationService.createEducation(this.myEducation).then(()=>{
       console.log('Create new item successfully!');
-    });
+    });*/
   }
 
   deleteEducation(id? :string){
@@ -43,7 +54,15 @@ itemCount: number =0;
     	console.log(id);
   
   }
-  updateEducation(id? :string){
-    alert('updating');    
+  updateEducation(educacion:any){
+    this.myEducation = { fechaInic: educacion.fechaInic, fechaFin: educacion.fechaFin, titulo: educacion.titulo, escuela: educacion.escuela };
+    this.selectedEducationId = educacion.id;
+    this.btnTxt = 'Update';
+  }
+
+  resetForm() {
+    this.myEducation = new Education();
+    this.selectedEducationId = null;
+    this.btnTxt = 'Agregar';
   }
 }

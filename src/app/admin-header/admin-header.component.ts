@@ -13,7 +13,8 @@ export class AdminHeaderComponent {
    btnTxt: string = "Agregar";
    header: Header[] = [];
    myHeader: Header = new Header();
-    constructor(public headerService: HeaderService)
+   selectedHeaderId: string | null = null;
+   constructor(public headerService: HeaderService)
     {
         console.log(this.headerService);
         this.headerService.getHeader().snapshotChanges().pipe(
@@ -29,10 +30,24 @@ export class AdminHeaderComponent {
     }
 
   AgregarHeader(){
-    console.log(this.headerService);
+    if (this.selectedHeaderId) {
+      // Si estamos editando
+      this.headerService.updateHeader(this.selectedHeaderId, this.myHeader).then(() => {
+        this.resetForm();
+        console.log('Updated item successfully!');
+      });
+    } else {
+      // Si estamos agregando
+      this.headerService.createHeader(this.myHeader).then(() => {
+        this.resetForm();
+        console.log('Created new item successfully!');
+      });
+    }
+      
+    /*console.log(this.headerService);
     this.headerService.createHeader(this.myHeader).then(() => {
        console.log('Created new item successfully!');
-    });
+    });*/
   }
 
   deleteHeader(id? :string){
@@ -42,7 +57,15 @@ export class AdminHeaderComponent {
     console.log(id);
   }
   
-  updateHeader(id? :string){
-    alert('updating...');
+  updateHeader(header: any){
+    this.myHeader={
+          name: header.name, goalLife: header.goalLife, photoURL: header.photoURL, email: header.email, phoneNumber: header.phoneNumber, location: header.location, socialNetwork: header.socialNetwork };
+          this.selectedHeaderId=header.id;
+          this.btnTxt="Update";
+  }
+  resetForm() {
+    this.myHeader = new Header();
+    this.selectedHeaderId = null;
+    this.btnTxt = "Agregar";
   }
 }

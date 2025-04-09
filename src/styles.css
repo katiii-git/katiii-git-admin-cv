@@ -42,14 +42,14 @@ input.txt {
   border: none;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: #458e64;
   font-size: 1em;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
 }
 
 input.txt::placeholder {
-  color: #458e64;
+  color: #e9eeeb;
   font-weight: 300;
 }
 
