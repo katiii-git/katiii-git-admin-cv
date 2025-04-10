@@ -15,7 +15,7 @@ export class AdminWorkexperienceComponent {
   goalText: string = "";
   workExperience: WorkExperience[] = [];
   myWorkExperience: WorkExperience = new WorkExperience();
-
+  selectedWorkExperienceId: string | null = null;
   constructor(public workExperienceService: WorkExperienceService)
 	{
 		console.log(this.workExperienceService);
@@ -32,20 +32,50 @@ export class AdminWorkexperienceComponent {
 	}
 
   AgregarJob(){
-    console.log(this.workExperienceService);
+     if (this.selectedWorkExperienceId) {
+    
+      this.workExperienceService.updateWorkExperience(this.selectedWorkExperienceId, this.myWorkExperience).then(() => {
+        this.resetForm();
+        console.log('Updated successfully!');
+      });
+    } else {
+   
+      this.workExperienceService.createWorkExperience(this.myWorkExperience).then(() => {
+        this.resetForm();
+        console.log('Created new work experience successfully!');
+      });
+    }
+
+    /*console.log(this.workExperienceService);
     this.workExperienceService.createWorkExperience(this.myWorkExperience).then(() => {
        console.log('Created new item successfully!');
-    });
+    });*/
   }
 
   deleteJob(id? :string){
+      if (window.confirm('¿Estás seguro de que deseas eliminar este work experience?')) {
     this.workExperienceService.deleteWorkExperience(id).then(() => {
-       console.log('Delete item successfully!');
+      console.log('Delete item successfully!');
     });
     console.log(id);
+  } else {
+    console.log('Eliminación cancelada.');
   }
-  updateJob(id? :string){
-    alert('updating...');
+/*    this.workExperienceService.deleteWorkExperience(id).then(() => {
+       console.log('Delete item successfully!');
+    });
+    console.log(id);*/
+  }
+  updateJob(job:any){
+    this.myWorkExperience = { startDate: job.startDate, endDate: job.endDate, location: job.location, position: job.position, company: job.company, accomplishment: job.accomplishment };
+    this.selectedWorkExperienceId = job.id;
+    this.btnTxt = 'Update';
+  }
+
+  resetForm() {
+    this.myWorkExperience = new WorkExperience();
+    this.selectedWorkExperienceId = null;
+    this.btnTxt = 'Agregar';
   }
 
 }
