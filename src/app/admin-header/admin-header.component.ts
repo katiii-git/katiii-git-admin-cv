@@ -51,10 +51,18 @@ export class AdminHeaderComponent {
   }
 
   deleteHeader(id? :string){
+      if (window.confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
     this.headerService.deleteHeader(id).then(() => {
-       console.log('Delete item successfully!');
+      console.log('Delete item successfully!');
     });
     console.log(id);
+  } else {
+    console.log('Eliminación cancelada.');
+  }
+/*    this.headerService.deleteHeader(id).then(() => {
+       console.log('Delete item successfully!');
+    });
+    console.log(id);*/
   }
   
   updateHeader(header: any){

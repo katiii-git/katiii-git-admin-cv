@@ -51,10 +51,18 @@ export class AdminSkillsComponent {
 	}
 
 	deleteSkill(id? :string){
-	  this.skillsService.deleteSkills(id).then(()=>{
+      if (window.confirm('¿Estás segura de que deseas eliminar esta habilidad?')) {
+        this.skillsService.deleteSkills(id).then(() => {
+        console.log('delete item successfully!');
+    });
+    console.log(id);
+      } else {
+        console.log('Eliminación cancelada.');
+      }
+/*	  this.skillsService.deleteSkills(id).then(()=>{
 	    console.log('delete item successfully!');
 	  });
-	   console.log(id);
+	   console.log(id);*/
 	}
 
     updateSkill(skill: any){

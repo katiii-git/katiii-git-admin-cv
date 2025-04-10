@@ -53,10 +53,18 @@ export class AdminWorkexperienceComponent {
   }
 
   deleteJob(id? :string){
+      if (window.confirm('¿Estás seguro de que deseas eliminar este work experience?')) {
     this.workExperienceService.deleteWorkExperience(id).then(() => {
-       console.log('Delete item successfully!');
+      console.log('Delete item successfully!');
     });
     console.log(id);
+  } else {
+    console.log('Eliminación cancelada.');
+  }
+/*    this.workExperienceService.deleteWorkExperience(id).then(() => {
+       console.log('Delete item successfully!');
+    });
+    console.log(id);*/
   }
   updateJob(job:any){
     this.myWorkExperience = { startDate: job.startDate, endDate: job.endDate, location: job.location, position: job.position, company: job.company, accomplishment: job.accomplishment };

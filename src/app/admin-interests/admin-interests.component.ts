@@ -52,10 +52,18 @@ export class AdminInterestsComponent {
   }
 
   deleteInterests(id? :string){
-    this.interestsService.deleteInterests(id).then(() => {
-       console.log('Delete item successfully!');
+    if (window.confirm('¿Estás segura de que deseas eliminar este interés?')) {
+      this.interestsService.deleteInterests(id).then(() => {
+      console.log('Delete item successfully!');
     });
     console.log(id);
+    } else {
+      console.log('Eliminación cancelada.');
+    }
+      /*    this.interestsService.deleteInterests(id).then(() => {
+       console.log('Delete item successfully!');
+    });
+    console.log(id);*/
   }
 
   updateInterests(interest :any){

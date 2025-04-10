@@ -48,10 +48,18 @@ itemCount: number =0;
   }
 
   deleteEducation(id? :string){
-    this.educationService.deleteEducation(id).then(()=>{
+    if (window.confirm('¿Estás seguro de que deseas eliminar este education?')) {
+    this.educationService.deleteEducation(id).then(() => {
       console.log('Delete item successfully!');
     });
-    	console.log(id);
+    console.log(id);
+  } else {
+    console.log('Eliminación cancelada.');
+  }
+      /*this.educationService.deleteEducation(id).then(()=>{
+      console.log('Delete item successfully!');
+    });
+    	console.log(id);*/
   
   }
   updateEducation(educacion:any){
