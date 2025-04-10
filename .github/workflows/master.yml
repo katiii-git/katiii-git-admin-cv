@@ -1,8 +1,8 @@
 name: CI/CD deploy master
 on: 
-  #push:
+  push:
     #branches: [ "deploy-release"]
-  pull_request:
+  #pull_request:
     branches: [ "master"]
 jobs:
   ci_cd_deploy_master:
