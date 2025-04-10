@@ -13,7 +13,9 @@ export class AdminCertificatesComponent {
    btnTxt: string = "Agregar";
    certificates: Certificates[] = [];
    myCertificates: Certificates = new Certificates();
-    constructor(public certificatesService: CertificatesService)
+   selectedCertificateId: string | null = null;
+
+   constructor(public certificatesService: CertificatesService)
     {
         console.log(this.certificatesService);
         this.certificatesService.getCertificates().snapshotChanges().pipe(
@@ -29,20 +31,49 @@ export class AdminCertificatesComponent {
     }
 
   AgregarCertificates(){
-    console.log(this.certificatesService);
+    if (this.selectedCertificateId) {
+      this.certificatesService.updateCertificates(this.selectedCertificateId, this.myCertificates).then(() => {
+        this.resetForm();
+        console.log('Updated item successfully!');
+      });
+    } else {
+      this.certificatesService.createCertificates(this.myCertificates).then(() => {
+        this.resetForm();
+        console.log('Created new item successfully!');
+      });
+    }
+
+    /*console.log(this.certificatesService);
     this.certificatesService.createCertificates(this.myCertificates).then(() => {
        console.log('Created new item successfully!');
-    });
+    });*/
   }
 
   deleteCertificates(id? :string){
+      if (window.confirm('¿Estás seguro de que deseas eliminar este certificate?')) {
     this.certificatesService.deleteCertificates(id).then(() => {
-       console.log('Delete item successfully!');
+      console.log('Delete item successfully!');
     });
     console.log(id);
+  } else {
+    console.log('Eliminación cancelada.');
+  }
+/*    this.certificatesService.deleteCertificates(id).then(() => {
+       console.log('Delete item successfully!');
+    });
+    console.log(id);*/
   }
 
-  updateCertificates(id? :string){
-    alert('updating...');
+  updateCertificates(certificados:any){
+    this.myCertificates = {
+      titulo: certificados.titulo, ano: certificados.ano, desc: certificados.desc, };
+    this.selectedCertificateId = certificados.id;
+    this.btnTxt = 'Update';
+  }
+
+  resetForm() {
+    this.myCertificates = new Certificates();
+    this.selectedCertificateId = null;
+    this.btnTxt = 'Agregar';
   }
 }

@@ -21,7 +21,7 @@
 
     <div class="col">
        <p class="life-container" *ngFor="let certificates of certificates;">
-          <input type="submit" class="btn" value="update" (click)="updateCertificates(certificates.id)">
+          <input type="submit" class="btn" value="update" (click)="updateCertificates(certificates)">
           <input type="submit" class="btn" value="delete" (click)="deleteCertificates(certificates.id)">
           {{certificates.titulo}} – <i>({{certificates.ano}})
               {{certificates.desc}}</i>

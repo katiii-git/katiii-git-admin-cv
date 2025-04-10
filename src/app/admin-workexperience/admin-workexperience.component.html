@@ -25,7 +25,7 @@
 
     <div class="col">
         <p class="life-container" *ngFor="let job of workExperience;">
-            <input type="submit" class="btn" value="update" (click)="updateJob(job.id)">
+            <input type="submit" class="btn" value="update" (click)="updateJob(job)">
 
             <input type="submit" class="btn" value="delete" (click)="deleteJob(job.id)">
             {{job.company}} – {{job.position}}
