@@ -20,7 +20,7 @@
 
     <div class="col">
         <p class="life-container" *ngFor="let skill of skills;">
-            <input type="submit" class="btn" value="update" (click)="updateSkill(skill.id)">
+            <input type="submit" class="btn" value="update" (click)="updateSkill(skill)">
             <input type="submit" class="btn" value="delete" (click)="deleteSkill(skill.id)">
             {{skill.skill}} – {{skill.percentage}}%
         </p>

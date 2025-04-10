@@ -19,7 +19,7 @@
 
     <div class="col">
         <p class="life-container" *ngFor="let interests of interests;">
-            <input type="submit" class="btn" value="update" (click)="updateInterests(interests.id)">
+            <input type="submit" class="btn" value="update" (click)="updateInterests(interests)">
             <input type="submit" class="btn" value="delete" (click)="deleteInterests(interests.id)">
             {{interests.descripcion}}
         </p>

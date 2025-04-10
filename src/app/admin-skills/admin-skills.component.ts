@@ -14,6 +14,7 @@ export class AdminSkillsComponent {
 	goalText: string = "";
 	skills: Skills[] =[];
 	mySkill: Skills = new Skills();
+    selectedSkillId: string | null = null;
 
 	constructor(public skillsService: SkillsService)
 	{
@@ -31,21 +32,50 @@ export class AdminSkillsComponent {
 	}
 
 	agregarSkill(){
-	  console.log(this.mySkill);
+      if (this.selectedSkillId) {
+      this.skillsService.updateSkills(this.selectedSkillId, this.mySkill).then(() => {
+        this.resetForm();
+        console.log('Updated skill successfully!');
+      });
+    } else {
+      // Si estamos agregando una nueva habilidad
+      this.skillsService.createSkills(this.mySkill).then(() => {
+        this.resetForm();
+        console.log('Created new skill successfully!');
+      });
+    }  
+      /* console.log(this.mySkill);
 	  this.skillsService.createSkills(this.mySkill).then(()=> {
 	   console.log('Created new item successfully!');
-	  });
+	  });*/
 	}
 
 	deleteSkill(id? :string){
-	  this.skillsService.deleteSkills(id).then(()=>{
+      if (window.confirm('¿Estás segura de que deseas eliminar esta habilidad?')) {
+        this.skillsService.deleteSkills(id).then(() => {
+        console.log('delete item successfully!');
+    });
+    console.log(id);
+      } else {
+        console.log('Eliminación cancelada.');
+      }
+/*	  this.skillsService.deleteSkills(id).then(()=>{
 	    console.log('delete item successfully!');
 	  });
-	   console.log(id);
+	   console.log(id);*/
 	}
 
-    updateSkill(id? :string){
-      alert('updating...');
-    }
+    updateSkill(skill: any){
+    this.mySkill = { skill: skill.skill, percentage: skill.percentage }; 
+    this.selectedSkillId = skill.id;
+    this.btnTxt = 'Update';
+  }
+
+    resetForm() {
+    this.mySkill = new Skills();
+    this.selectedSkillId = null;
+    this.btnTxt = 'Agregar';
+  }
+    
 
 }

@@ -19,7 +19,7 @@
 
     <div class="col">
         <p class="life-container" *ngFor="let language of languages;">
-            <input type="submit" class="btn" value="update" (click)="updateLanguage(language.id)">
+            <input type="submit" class="btn" value="update" (click)="updateLanguage(language)">
             <input type="submit" class="btn" value="delete" (click)="deleteLanguage(language.id)">
             {{language.language}}
         </p>

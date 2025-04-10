@@ -22,7 +22,7 @@
 
     <div class="col">
         <p class="life-container" *ngFor="let edu of education;">
-            <input type="submit" class="btn" value="update" (click)="updateEducation(edu.id)">
+            <input type="submit" class="btn" value="update" (click)="updateEducation(edu)">
             <input type="submit" class="btn" value="delete" (click)="deleteEducation(edu.id)">
             {{edu.titulo}} – {{edu.escuela}}
         </p>

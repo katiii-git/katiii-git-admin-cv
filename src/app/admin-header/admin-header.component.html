@@ -26,7 +26,7 @@
 
     <div class="col">
        <p class="life-container" *ngFor="let header of header;">
-          <input type="submit" class="btn" value="update" (click)="updateHeader(header.id)">
+          <input type="submit" class="btn" value="update" (click)="updateHeader(header)">
           <input type="submit" class="btn" value="delete" (click)="deleteHeader(header.id)">
           {{header.name}} – {{header.email}} - {{header.phoneNumber}}
        </p>
