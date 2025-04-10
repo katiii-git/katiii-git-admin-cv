@@ -86,4 +86,8 @@ input.btn:hover {
   margin-bottom: 1rem;
   border-left: 4px solid #fff;
 }
+a.active {
+  color: #538a6b;
+  font-weight: 700;
+}
 
