@@ -20,7 +20,7 @@
           <input type="text" class="txt" name="location" placeholder="city, country" [(ngModel)]="myHeader.location"><br>
           <input type="text" class="txt" name="socialNetwork" placeholder="@facebook" [(ngModel)]="myHeader.socialNetwork"><br>
 
-          <input type="submit" class="btn" value="{{ btnTxt }}" (click)="AgregarHeader()">
+          <input *ngIf="!header.length || selectedHeaderId" type="submit" class="btn" value="{{ btnTxt }}" (click)="AgregarHeader()">
        </form>
     </div>
 

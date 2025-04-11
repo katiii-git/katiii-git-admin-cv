@@ -37,19 +37,23 @@ export class AdminHeaderComponent {
         console.log('Updated item successfully!');
       });
     } else {
-      // Si estamos agregando
+      if(this.header.length ===0){
+     // Si estamos agregando
       this.headerService.createHeader(this.myHeader).then(() => {
         this.resetForm();
         console.log('Created new item successfully!');
-      });
-    }
-      
+        });
+
+      } else{
+          console.warn("Ya existe un header");
+      }
+    }  
     /*console.log(this.headerService);
     this.headerService.createHeader(this.myHeader).then(() => {
        console.log('Created new item successfully!');
     });*/
+    
   }
-
   deleteHeader(id? :string){
       if (window.confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
     this.headerService.deleteHeader(id).then(() => {
